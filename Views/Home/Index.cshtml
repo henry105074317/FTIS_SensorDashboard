@@ -1,0 +1,39 @@
+﻿@{
+    ViewBag.Title = "全國淹水感測器儀表板";
+}
+
+<meta charset="utf-8" />
+<script src="~/Scripts/jquery-1.9.1.js"></script>
+<link rel="stylesheet" href="~/Content/bootstrap.css" />
+<script src="~/Scripts/bootstrap.js"></script>
+<script src="~/Scripts/highcharts.js"></script>
+<script src="~/Scripts/pj.js" type=""></script>
+<script src="~/Scripts/moment.js" type=""></script>
+<link rel="stylesheet" href="~/Content/pjCss.css" />
+
+<div class="container-fluid">
+    <div class="row" style="text-align:center">
+        <span style="font-size:36px;font-weight:900">淹水感測器即時狀態監控儀錶板</span>
+        <span id="timetext" style="font-size:16px;font-weight:400"></span>
+    </div>
+    <div class="row" style="display:inline-flex;width:100%">
+        <div class="col" style="text-align:right">
+            <h3>以建置單位分類</h3>
+        </div>
+
+        <div class="col">
+            <div class="onoffswitch">
+                <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" tabindex="0" onclick="SwitchOnClick()">
+                <label class="onoffswitch-label" for="myonoffswitch"></label>
+            </div>
+        </div>
+
+        <div class="col" style="text-align:left">
+            <h3>以縣市分類</h3>
+        </div>
+
+    </div>
+
+    <div class="row"></div>
+</div>
+
