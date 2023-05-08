@@ -149,8 +149,11 @@ $(document).ready(function () {
                     total += chart.series[0].data[k].y;
                 }
 
+                var new_name = data[i].Name.replace("臺", "台");
+                var new_name_2 = data[i].Name_2.replace("臺", "台");
+
                 chart.setTitle(null, {
-                    text: '<a href="https://www.dprcflood.org.tw/SGDS/FDashboard.html?county=' + data[i].Name_2 + '" target="_blank" style="color: blue; text-decoration: underline;">' + data[i].Name + ' 共' + total.toFixed(0) + '站</a>' });
+                    text: '<a href="https://www.dprcflood.org.tw/SGDS/FDashboard.html?county=' + new_name_2 + '" target="_blank" style="color: blue; text-decoration: underline;">' + new_name + ' 共' + total.toFixed(0) + '站</a>' });
 
                 const windowWidth = window.innerWidth;
                 const cellWidth = windowWidth / 6.07;
@@ -163,7 +166,7 @@ $(document).ready(function () {
         },
     });
 
-    var nowTime = moment().format('YYYY-MM-D HH:mm:ss')
+    var nowTime = moment().format('YYYY-MM-DD HH:mm:ss')
     $('#timetext').text(' 資料時間：' + nowTime);
 });
 
@@ -179,7 +182,7 @@ function SwitchOnClick() {
             GetSensorInfo();
             console.log("切換到Operator");
     }
-    var nowTime = moment().format('YYYY-MM-D HH:mm:ss')
+    var nowTime = moment().format('YYYY-MM-DD HH:mm:ss')
     $('#timetext').text(' 資料時間：' + nowTime);
 }
 
