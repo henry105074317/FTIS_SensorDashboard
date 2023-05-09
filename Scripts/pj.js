@@ -33,14 +33,26 @@ $(document).ready(function () {
                 gridItem.setAttribute('id', itemId); // 設定元素的 id 屬性
                 gridItem.classList.add('col-2'); // 可以設定格子的 class，加入自己的樣式   
 
-                rows[row_num -1].appendChild(gridItem); // 加入格子到父容器中
+                rows[row_num - 1].appendChild(gridItem); // 加入格子到父容器中
 
+                // 修正簡繁體字問題
+                var new_name = data[i].Name.replace("臺", "台");
+                var new_name_2 = data[i].Name_2.replace("臺", "台");
+                // 找到相對應單位聯絡方式
+                var mapping_index = contact.findIndex(function (item) {
+                    if (new_name.includes("政府") == true) {
+                        return item.Operator === new_name.substr(0,3);
+                    }
+                    else {
+                        return item.Operator === new_name;
+                    }                    
+                });
 
                 Highcharts.chart('chart' + (i + 1), {
                     chart: {
                         plotBackgroundColor: null,
                         plotBorderWidth: 0,
-                        plotShadow: false
+                        plotShadow: false,
                     },
                     title: {
                         text: '警戒中' + data[i].Alert + '站<br>待檢核' + data[i].ToBeConfirm + '站',
@@ -48,7 +60,6 @@ $(document).ready(function () {
                         verticalAlign: 'middle',
                         y: 65,
                         style: {
-                            //color: '#000000',
                             fontSize: 22,
                         },
                     },
@@ -61,12 +72,14 @@ $(document).ready(function () {
                             color: '#000000',
                             fontSize: 24,
                         },
+                        
                     },
                     tooltip: {
                         style: {
-                            fontSize: 24,
+                            fontSize: 15,
                         },
-                        pointFormat: '{series.name}: <b>{point.y}站</b>'
+                        //pointFormat: '{series.name}: <b>{point.y}站</b>'
+                        pointFormat: '單位：' + contact[mapping_index]["Operator"] + ' <br> 聯絡人：' + contact[mapping_index]["Name"] + ' <br> 電話：' + contact[mapping_index]["Tel"] + ' <br> 信箱：' + contact[mapping_index]["Email"],
                     },
                     accessibility: {
                         point: {
@@ -148,12 +161,10 @@ $(document).ready(function () {
                 for (var k = 0; k < chart.series[0].data.length; k++) {
                     total += chart.series[0].data[k].y;
                 }
-
-                var new_name = data[i].Name.replace("臺", "台");
-                var new_name_2 = data[i].Name_2.replace("臺", "台");
-
+                
                 chart.setTitle(null, {
-                    text: '<a href="https://www.dprcflood.org.tw/SGDS/FDashboard.html?county=' + new_name_2 + '" target="_blank" style="color: blue; text-decoration: underline;">' + new_name + ' 共' + total.toFixed(0) + '站</a>' });
+                    text: '<a href="https://www.dprcflood.org.tw/SGDS/FDashboard.html?county=' + new_name_2 + '" target="_blank" style="color: blue; text-decoration: underline;">' + new_name + ' 共' + total.toFixed(0) + '站</a>',
+                });
 
                 const windowWidth = window.innerWidth;
                 const cellWidth = windowWidth / 6.07;
@@ -173,14 +184,14 @@ $(document).ready(function () {
 
 function SwitchOnClick() {
         if ($("#myonoffswitch").prop("checked") == true) {
-            console.log("切換到CITY");
+            //console.log("切換到CITY");
             $("#myonoffswitch").prop("value", "City");
             GetSensorInfo();
         }
         else {
             $("#myonoffswitch").prop("value", "Operator");
             GetSensorInfo();
-            console.log("切換到Operator");
+            //console.log("切換到Operator");
     }
     var nowTime = moment().format('YYYY-MM-DD HH:mm:ss')
     $('#timetext').text(' 資料時間：' + nowTime);
@@ -191,6 +202,9 @@ function GetSensorInfo() {
 
     const gridContainer = document.querySelector('.container-fluid');
     const rows = gridContainer.querySelectorAll('.row');
+    //先刪除原本分類所有元素，避免出現不同分類方式
+    rows[2].innerHTML = '';
+
     const row_num = rows.length;
 
     $.ajax({
@@ -208,7 +222,17 @@ function GetSensorInfo() {
                 gridItem.classList.add('col-2'); // 可以設定格子的 class，加入自己的樣式   
 
                 rows[row_num - 1].appendChild(gridItem); // 加入格子到父容器中
+                var new_name = data[i].Name.replace("臺", "台");
+                var new_name_2 = data[i].Name_2.replace("臺", "台");
+                var mapping_index = contact.findIndex(function (item) {
+                    if (new_name.includes("政府") == true) {
+                        return item.Operator === new_name.substr(0, 3);
+                    }
+                    else {
+                        return item.Operator === new_name;
+                    }
 
+                });
 
                 Highcharts.chart('chart' + (i + 1), {
                     chart: {
@@ -238,9 +262,9 @@ function GetSensorInfo() {
                     },
                     tooltip: {
                         style: {
-                            fontSize: 24,
+                            fontSize: 15,
                         },
-                        pointFormat: '{series.name}: <b>{point.y}站</b>'
+                        pointFormat: '單位：' + contact[mapping_index]["Operator"] + ' <br> 聯絡人：' + contact[mapping_index]["Name"] + ' <br> 電話：' + contact[mapping_index]["Tel"] + ' <br> 信箱：' + contact[mapping_index]["Email"]
                     },
                     accessibility: {
                         point: {
@@ -323,7 +347,9 @@ function GetSensorInfo() {
                     total += chart.series[0].data[k].y;
                 }
 
-                chart.setTitle(null, { text: '<a href="https://www.dprcflood.org.tw/SGDS/FDashboard.html?county=' + data[i].Name_2 + '" target="_blank" style="color: blue; text-decoration: underline;">' + data[i].Name + ' 共' + total.toFixed(0) + '站</a>' });
+                chart.setTitle(null, {
+                    text: '<a href="https://www.dprcflood.org.tw/SGDS/FDashboard.html?county=' + new_name_2 + '" target="_blank" style="color: blue; text-decoration: underline;">' + new_name + ' 共' + total.toFixed(0) + '站</a>',
+                });
 
                 const windowWidth = window.innerWidth;
                 const cellWidth = windowWidth / 6.07;
