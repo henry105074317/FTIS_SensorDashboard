@@ -22,6 +22,16 @@ footer {
     display: none;
 }
 
+#title {
+    font-size: 36px;
+    font-weight: 900
+}
+
+#timetext {
+    font-size: 16px;
+    font-weight: 700
+}
+
 
 .col-2 {
     display: inline-block;
@@ -32,7 +42,7 @@ footer {
 }
 
 h3 {
-    font-weight: 1000;
+    font-weight: 1000
 }
 
 
@@ -143,3 +153,24 @@ h3 {
             background-color: #2B2B2B;
             box-shadow: 3px 6px 18px 0px rgba(0, 0, 0, 0.2);
         }
+
+
+/*RWDªº³¡¤À*/
+
+@media screen and (max-width: 600px) {
+    #title {
+        font-size: 24px;
+    }
+    h3 {
+        font-size: 14px;
+    }
+    .onoffswitch-label {
+        height: 14px;
+        margin: 10px;
+
+    }
+        .onoffswitch-label:before {
+            width: 22px;
+        }
+
+}

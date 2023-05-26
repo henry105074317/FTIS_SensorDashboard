@@ -31,7 +31,9 @@ $(document).ready(function () {
                 const gridItem = document.createElement('div');
                 const itemId = 'chart' + (i + 1); // 這裡可以自行設定 ID 的命名方式
                 gridItem.setAttribute('id', itemId); // 設定元素的 id 屬性
-                gridItem.classList.add('col-2'); // 可以設定格子的 class，加入自己的樣式   
+                gridItem.classList.add('col-12'); // 可以設定格子的 class，加入自己的樣式   
+                gridItem.classList.add('col-sm-3');
+                gridItem.classList.add('col-lg-2');
 
                 rows[row_num - 1].appendChild(gridItem); // 加入格子到父容器中
 
@@ -49,6 +51,44 @@ $(document).ready(function () {
                 });
 
                 Highcharts.chart('chart' + (i + 1), {
+                    responsive: {
+                        rules: [{
+                            condition: {
+                                minWidth: 300 
+                            },
+                            chartOptions: {
+                                /* 在這裡設定手機螢幕的圖表配置 */
+                                title: {
+                                    y: 85,
+                                    style: { fontSize: 28},
+                                },
+                                subtitle: {
+                                    y: -90,
+                                    style: {
+                                        fontSize: 28,
+                                    },
+
+                                },
+                                plotOptions: {
+                                    pie: {
+                                        dataLabels: {
+                                            enabled: true,
+                                            distance: -10,
+                                            style: {
+                                                fontWeight: '900',
+                                                color: 'black',
+                                            },
+                                        },
+                                        startAngle: -90,
+                                        endAngle: 90,
+                                        center: ['50%', '75%'],
+                                        size: '100%'
+                                    }
+                                },
+                                /* 調整圖表的寬度、高度、字型大小等等 */
+                            }
+                        }]
+                    },
                     chart: {
                         plotBackgroundColor: null,
                         plotBorderWidth: 0,
@@ -58,7 +98,7 @@ $(document).ready(function () {
                         text: '警戒中' + data[i].Alert + '站<br>待檢核' + data[i].ToBeConfirm + '站',
                         align: 'center',
                         verticalAlign: 'middle',
-                        y: 65,
+                        y: 85,
                         style: {
                             fontSize: 22,
                         },
@@ -90,7 +130,7 @@ $(document).ready(function () {
                         pie: {
                             dataLabels: {
                                 enabled: true,
-                                distance: -32,
+                                distance: -2,
                                 style: {
                                     fontWeight: '900',
                                     color: 'black',
@@ -108,7 +148,7 @@ $(document).ready(function () {
                         innerSize: '70%',
                         dataLabels: {
                             style: {
-                                fontSize: 14
+                                fontSize: 16
                             },
                             formatter: function () {
                                 if (this.y === 0) {
@@ -166,9 +206,10 @@ $(document).ready(function () {
                     text: '<a href="https://www.dprcflood.org.tw/SGDS/FDashboard.html?county=' + new_name_2 + '" target="_blank" style="color: blue; text-decoration: underline;">' + new_name + ' 共' + total.toFixed(0) + '站</a>',
                 });
 
-                const windowWidth = window.innerWidth;
-                const cellWidth = windowWidth / 6.07;
-                chart.setSize(cellWidth, 270);
+                //const windowWidth = window.innerWidth;
+                //const cellWidth = windowWidth / 6.07;
+                //const cellWidth = windowWidth ;
+                //chart.setSize(cellWidth, 270);
                 chart.margin = [0, 0, 0, 0];
                 chart.plotLeft = 0;
                 chart.plotTop = 20;
@@ -219,7 +260,9 @@ function GetSensorInfo() {
                 const gridItem = document.createElement('div');
                 const itemId = 'chart' + (i + 1); // 這裡可以自行設定 ID 的命名方式
                 gridItem.setAttribute('id', itemId); // 設定元素的 id 屬性
-                gridItem.classList.add('col-2'); // 可以設定格子的 class，加入自己的樣式   
+                gridItem.classList.add('col-12'); // 可以設定格子的 class，加入自己的樣式   
+                gridItem.classList.add('col-sm-3');
+                gridItem.classList.add('col-lg-2');
 
                 rows[row_num - 1].appendChild(gridItem); // 加入格子到父容器中
                 var new_name = data[i].Name.replace("臺", "台");
@@ -235,6 +278,44 @@ function GetSensorInfo() {
                 });
 
                 Highcharts.chart('chart' + (i + 1), {
+                    responsive: {
+                        rules: [{
+                            condition: {
+                                minWidth: 300
+                            },
+                            chartOptions: {
+                                /* 在這裡設定手機螢幕的圖表配置 */
+                                title: {
+                                    y: 85,
+                                    style: { fontSize: 28 },
+                                },
+                                subtitle: {
+                                    y: -90,
+                                    style: {
+                                        fontSize: 28,
+                                    },
+
+                                },
+                                plotOptions: {
+                                    pie: {
+                                        dataLabels: {
+                                            enabled: true,
+                                            distance: -2,
+                                            style: {
+                                                fontWeight: '900',
+                                                color: 'black',
+                                            },
+                                        },
+                                        startAngle: -90,
+                                        endAngle: 90,
+                                        center: ['50%', '75%'],
+                                        size: '100%'
+                                    }
+                                },
+                                /* 調整圖表的寬度、高度、字型大小等等 */
+                            }
+                        }]
+                    },
                     chart: {
                         plotBackgroundColor: null,
                         plotBorderWidth: 0,
@@ -244,7 +325,7 @@ function GetSensorInfo() {
                         text: '警戒中' + data[i].Alert + '站<br>待檢核' + data[i].ToBeConfirm + '站',
                         align: 'center',
                         verticalAlign: 'middle',
-                        y: 65,
+                        y: 85,
                         style: {
                             color: '#000000',
                             fontSize: 22,
@@ -351,9 +432,9 @@ function GetSensorInfo() {
                     text: '<a href="https://www.dprcflood.org.tw/SGDS/FDashboard.html?county=' + new_name_2 + '" target="_blank" style="color: blue; text-decoration: underline;">' + new_name + ' 共' + total.toFixed(0) + '站</a>',
                 });
 
-                const windowWidth = window.innerWidth;
-                const cellWidth = windowWidth / 6.07;
-                chart.setSize(cellWidth, 270);
+                //const windowWidth = window.innerWidth;
+                //const cellWidth = windowWidth / 6.07;
+                //chart.setSize(cellWidth, 270);
                 chart.margin = [0, 0, 0, 0];
                 chart.plotLeft = 0;
                 chart.plotTop = 20;
