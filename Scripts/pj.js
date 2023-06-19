@@ -21,7 +21,7 @@ $(document).ready(function () {
 
     $.ajax({
         type: "GET",
-        url: "../home/GetSensorInfo",
+        url: app.siteRoot + "home/GetSensorInfo",
         data: { groupby: 'Operator' },
         dataType: "json",
         success: function (data) {
@@ -250,7 +250,7 @@ function GetSensorInfo() {
 
     $.ajax({
         type: "GET",
-        url: "../home/GetSensorInfo",
+        url: app.siteRoot + "home/GetSensorInfo",
         data: { groupby: groupby },
         dataType: "json",
         success: function (data) {
