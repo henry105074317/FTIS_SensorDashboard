@@ -208,7 +208,6 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\pjCss.css" />
     <Content Include="Data\GetFHYCity.xml" />
-    <Content Include="Data\GetFHYFloodSensorStation.xml" />
     <Content Include="Data\機關單位.txt" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />

@@ -256,7 +256,8 @@ namespace WSensor_DashB.Controllers
 
         public List<sensorData> SensorRegionList() //將全國所有淹感的建置單位.縣市輸出List
         {
-            XmlTextReader reader = new XmlTextReader(Server.MapPath("../") + "/Data/GetFHYFloodSensorStation.xml");
+            string url = "https://www.dprcflood.org.tw/SGDS/WS/FHYBrokerWS.asmx/GetFHYFloodSensorStation";
+            XmlTextReader reader = new XmlTextReader(url);
             List<sensorData> Xmlvalue = new List<sensorData>();
             string SensorUUID = "";
             string Operator = "";
