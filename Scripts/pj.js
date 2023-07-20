@@ -56,7 +56,7 @@ $(document).ready(function () {
                     title_text = '警戒中' + data[i].Alert + '站<br>待檢核' + data[i].ToBeConfirm + '站';
                     title_y = 85;
                 } else {
-                    title_text = '警戒中' + data[i].Alert + '站<br>待檢核' + data[i].ToBeConfirm + '站<br><br>待檢核最新資料時間<br>' + data[i].SourceTime;
+                    title_text = '警戒中' + data[i].Alert + '站<br>待檢核' + data[i].ToBeConfirm + '站<br><br><p style="font-size: 18px">資料延遲時間<br>' + data[i].SourceTime + '</p>';
                     title_y = 115;
                 }
 
@@ -293,7 +293,7 @@ function GetSensorInfo() {
                     title_text = '警戒中' + data[i].Alert + '站<br>待檢核' + data[i].ToBeConfirm + '站';
                     title_y = 85;
                 } else {
-                    title_text = '警戒中' + data[i].Alert + '站<br>待檢核' + data[i].ToBeConfirm + '站<br><br>待檢核最新資料時間<br>' + data[i].SourceTime;
+                    title_text = '警戒中' + data[i].Alert + '站<br>待檢核' + data[i].ToBeConfirm + '站<br><br><p style="font-size: 18px">資料延遲時間<br>' + data[i].SourceTime + '</p>';
                     title_y = 115;
                 }
                 Highcharts.chart('chart' + (i + 1), {
