@@ -49,6 +49,16 @@ $(document).ready(function () {
                         return item.Operator === new_name;
                     }                    
                 });
+                //設定title文字
+                var title_text = '';
+                var title_y = 0;
+                if (data[i].ToBeConfirm == 0) {
+                    title_text = '警戒中' + data[i].Alert + '站<br>待檢核' + data[i].ToBeConfirm + '站';
+                    title_y = 85;
+                } else {
+                    title_text = '警戒中' + data[i].Alert + '站<br>待檢核' + data[i].ToBeConfirm + '站<br><br>待檢核最新資料時間<br>' + data[i].SourceTime;
+                    title_y = 115;
+                }
 
                 Highcharts.chart('chart' + (i + 1), {
                     responsive: {
@@ -59,7 +69,7 @@ $(document).ready(function () {
                             chartOptions: {
                                 /* 在這裡設定手機螢幕的圖表配置 */
                                 title: {
-                                    y: 85,
+                                    y: title_y,
                                     style: { fontSize: 28},
                                 },
                                 subtitle: {
@@ -95,10 +105,10 @@ $(document).ready(function () {
                         plotShadow: false,
                     },
                     title: {
-                        text: '警戒中' + data[i].Alert + '站<br>待檢核' + data[i].ToBeConfirm + '站',
+                        text: title_text,
                         align: 'center',
                         verticalAlign: 'middle',
-                        y: 85,
+                        y: title_y,
                         style: {
                             fontSize: 22,
                         },
@@ -276,7 +286,16 @@ function GetSensorInfo() {
                     }
 
                 });
-
+                //設定title文字
+                var title_text = '';
+                var title_y = 0;
+                if (data[i].ToBeConfirm == 0) {
+                    title_text = '警戒中' + data[i].Alert + '站<br>待檢核' + data[i].ToBeConfirm + '站';
+                    title_y = 85;
+                } else {
+                    title_text = '警戒中' + data[i].Alert + '站<br>待檢核' + data[i].ToBeConfirm + '站<br><br>待檢核最新資料時間<br>' + data[i].SourceTime;
+                    title_y = 115;
+                }
                 Highcharts.chart('chart' + (i + 1), {
                     responsive: {
                         rules: [{
@@ -286,7 +305,7 @@ function GetSensorInfo() {
                             chartOptions: {
                                 /* 在這裡設定手機螢幕的圖表配置 */
                                 title: {
-                                    y: 85,
+                                    y: title_y,
                                     style: { fontSize: 28 },
                                 },
                                 subtitle: {
@@ -322,10 +341,10 @@ function GetSensorInfo() {
                         plotShadow: false
                     },
                     title: {
-                        text: '警戒中' + data[i].Alert + '站<br>待檢核' + data[i].ToBeConfirm + '站',
+                        text: title_text,
                         align: 'center',
                         verticalAlign: 'middle',
-                        y: 85,
+                        y: title_y,
                         style: {
                             color: '#000000',
                             fontSize: 22,

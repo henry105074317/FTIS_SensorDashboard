@@ -36,7 +36,7 @@ namespace WSensor_DashB.Controllers
             return View();
         }
 
-        public string GetSensorInfo()
+        public string GetSensorInfo() //取得整理過後最新資料
         {
             string groupby = Request.QueryString["groupby"];
 
@@ -48,6 +48,7 @@ namespace WSensor_DashB.Controllers
 
             finalTable.Columns.Add("Name", typeof(String));
             finalTable.Columns.Add("Name_2", typeof(String));
+            finalTable.Columns.Add("SourceTime", typeof(string));
             finalTable.Columns.Add("Normal", typeof(int));
             finalTable.Columns.Add("Alert", typeof(int));
             finalTable.Columns.Add("ToBeConfirm", typeof(int));
@@ -60,7 +61,7 @@ namespace WSensor_DashB.Controllers
                 int Alert = 0;
                 int ToBeConfirm = 0;
                 if (row_len == 0) // Table當中沒有資料 新增一筆
-                {                   
+                {
                     DataRow row = finalTable.NewRow();
                     row["Name"] = EachSensor.Name;
                     row["Name_2"] = EachSensor.Name_2;
@@ -79,6 +80,7 @@ namespace WSensor_DashB.Controllers
                     row["Normal"] = Normal;
                     row["Alert"] = Alert;
                     row["ToBeConfirm"] = ToBeConfirm;
+                    row["SourceTime"] = EachSensor.SourceTime.ToString("yyyy/MM/dd HH:mm");
                     finalTable.Rows.Add(row);
                 }
                 else //資料表中已有資料，取出欄位更新
@@ -87,6 +89,12 @@ namespace WSensor_DashB.Controllers
                     {
                         ToBeConfirm += 1;
                         old_row[0]["ToBeConfirm"] = Convert.ToInt32(old_row[0]["ToBeConfirm"]) + ToBeConfirm;
+                        string t = old_row[0]["SourceTime"].ToString();
+                        DateTime old_time = DateTime.Parse(t);
+                        if (EachSensor.SourceTime >= old_time)
+                        {
+                            old_row[0]["SourceTime"] = EachSensor.SourceTime.ToString("yyyy/MM/dd HH:mm");
+                        }
                     }
                     else if (EachSensor.Stage == "Alert")
                     {
@@ -121,9 +129,6 @@ namespace WSensor_DashB.Controllers
                 parentRow.Add(childRow);
             }
             var json = JsonConvert.SerializeObject(parentRow);
-            //var result = new HttpResponseMessage(HttpStatusCode.OK);
-            //result.Content = new StringContent(json);
-            //result.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
             return json;
         }
@@ -139,7 +144,7 @@ namespace WSensor_DashB.Controllers
             {
                 byCity = false;
             }
-            
+
 
             List<sensorData> SensorLists = SensorRegionList(); // 淹感基本資料表
             List<CityList> cityLists = CityNameList(); // 縣市代碼轉名稱
@@ -149,7 +154,7 @@ namespace WSensor_DashB.Controllers
             XmlTextReader reader = new XmlTextReader(url);
             List<sensorinfo> Xmlvalue = new List<sensorinfo>();
 
-            DateTime DateTime = new DateTime();
+            DateTime SourceTime = new DateTime();
             string Depth = "";
             string SensorUUID = "";
             string ToBeConfirm = "";
@@ -175,11 +180,11 @@ namespace WSensor_DashB.Controllers
                                 Depth = reader.Value;
                                 break;
                             case "SourceTime":
-                                DateTime = Convert.ToDateTime(reader.Value);
+                                SourceTime = Convert.ToDateTime(reader.Value);
                                 break;
                             case "ToBeConfirm": // true 待確認 false 正常
                                 ToBeConfirm = reader.Value;
-                                Xmlvalue.Add(new sensorinfo() { DateTime = DateTime, SensorUUID = SensorUUID, ToBeConfirm = ToBeConfirm, Depth = Depth });//把XML塞進LIST
+                                Xmlvalue.Add(new sensorinfo() { SourceTime = SourceTime, SensorUUID = SensorUUID, ToBeConfirm = ToBeConfirm, Depth = Depth });//把XML塞進LIST
                                 break;
                         }
                         break;
@@ -208,7 +213,7 @@ namespace WSensor_DashB.Controllers
                         Stage = "Normal";
                     }
                 }
-                outlist.Add(new rusultlist() { Name = Name_arr[0], Name_2 = Name_arr[1], Stage = Stage });
+                outlist.Add(new rusultlist() { Name = Name_arr[0], Name_2 = Name_arr[1], Stage = Stage, SourceTime = sensor.SourceTime });
             }
             );
 
@@ -237,7 +242,7 @@ namespace WSensor_DashB.Controllers
                 else
                 {
                     index_city = cityLists.FindIndex(x => x.CityCode == CityCode);
-                    index_unit = unitLists.FindIndex(x => x.id == UnitCode);                   
+                    index_unit = unitLists.FindIndex(x => x.id == UnitCode);
                     Name = unitLists[index_unit].Name;
                     Name_2 = cityLists[index_city].CityName; //建制單位的縣市
                 }
@@ -351,7 +356,7 @@ namespace WSensor_DashB.Controllers
 
         public class sensorinfo
         {
-            public DateTime DateTime { get; set; }
+            public DateTime SourceTime { get; set; }
             public string Depth { get; set; }
             public string SensorUUID { get; set; }
             public string ToBeConfirm { get; set; }
@@ -382,6 +387,7 @@ namespace WSensor_DashB.Controllers
             public string Name { get; set; }
             public string Name_2 { get; set; }
             public string Stage { get; set; }
+            public DateTime SourceTime { get; set; }
         }
 
     }
