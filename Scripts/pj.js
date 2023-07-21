@@ -49,16 +49,25 @@ $(document).ready(function () {
                         return item.Operator === new_name;
                     }                    
                 });
+                // 設定字體自行隨螢幕大小比例縮放
+                var title_fontsize = (document.getElementById('chart' + (i + 1)).offsetWidth) * 0.07;
+                var subtitle_fontsize = (document.getElementById('chart' + (i + 1)).offsetWidth) * 0.075;
+                var title_timefontsize = (document.getElementById('chart' + (i + 1)).offsetWidth) * 0.06;
                 //設定title文字
                 var title_text = '';
+                var mobile_titletext = ''; // 手機顯示特別設定
                 var title_y = 0;
                 if (data[i].ToBeConfirm == 0) {
                     title_text = '警戒中' + data[i].Alert + '站<br>待檢核' + data[i].ToBeConfirm + '站';
+                    mobile_titletext = title_text;
                     title_y = 85;
                 } else {
-                    title_text = '警戒中' + data[i].Alert + '站<br>待檢核' + data[i].ToBeConfirm + '站<br><br><p style="font-size: 18px">資料延遲時間<br>' + data[i].SourceTime + '</p>';
+                    title_text = '警戒中' + data[i].Alert + '站<br>待檢核' + data[i].ToBeConfirm + '站<br><br><p style="font-size: ' + title_timefontsize  + 'px">待檢核最新資料時間<br>' + data[i].SourceTime + '</p>';
+                    mobile_titletext = '警戒中' + data[i].Alert + '站<br>待檢核' + data[i].ToBeConfirm + '站<br><br><p style="font-size: 22px">待檢核最新資料時間<br>' + data[i].SourceTime + '</p>';
                     title_y = 115;
                 }
+                
+                
 
                 Highcharts.chart('chart' + (i + 1), {
                     responsive: {
@@ -69,6 +78,7 @@ $(document).ready(function () {
                             chartOptions: {
                                 /* 在這裡設定手機螢幕的圖表配置 */
                                 title: {
+                                    text: mobile_titletext,
                                     y: title_y,
                                     style: { fontSize: 28},
                                 },
@@ -110,7 +120,7 @@ $(document).ready(function () {
                         verticalAlign: 'middle',
                         y: title_y,
                         style: {
-                            fontSize: 22,
+                            fontSize: title_fontsize,
                         },
                     },
                     subtitle: {
@@ -120,7 +130,7 @@ $(document).ready(function () {
                         y: -78,
                         style: {
                             color: '#000000',
-                            fontSize: 24,
+                            fontSize: subtitle_fontsize,
                         },
                         
                     },
@@ -286,14 +296,21 @@ function GetSensorInfo() {
                     }
 
                 });
+                // 設定字體自行隨螢幕大小比例縮放
+                var title_fontsize = (document.getElementById('chart' + (i + 1)).offsetWidth) * 0.07;
+                var subtitle_fontsize = (document.getElementById('chart' + (i + 1)).offsetWidth) * 0.075;
+                var title_timefontsize = (document.getElementById('chart' + (i + 1)).offsetWidth) * 0.06;
                 //設定title文字
                 var title_text = '';
+                var mobile_titletext = ''; // 手機顯示特別設定
                 var title_y = 0;
                 if (data[i].ToBeConfirm == 0) {
                     title_text = '警戒中' + data[i].Alert + '站<br>待檢核' + data[i].ToBeConfirm + '站';
+                    mobile_titletext = title_text;
                     title_y = 85;
                 } else {
-                    title_text = '警戒中' + data[i].Alert + '站<br>待檢核' + data[i].ToBeConfirm + '站<br><br><p style="font-size: 18px">資料延遲時間<br>' + data[i].SourceTime + '</p>';
+                    title_text = '警戒中' + data[i].Alert + '站<br>待檢核' + data[i].ToBeConfirm + '站<br><br><p style="font-size: ' + title_timefontsize + 'px">待檢核最新資料時間<br>' + data[i].SourceTime + '</p>';
+                    mobile_titletext = '警戒中' + data[i].Alert + '站<br>待檢核' + data[i].ToBeConfirm + '站<br><br><p style="font-size: 22px">待檢核最新資料時間<br>' + data[i].SourceTime + '</p>';
                     title_y = 115;
                 }
                 Highcharts.chart('chart' + (i + 1), {
@@ -305,6 +322,7 @@ function GetSensorInfo() {
                             chartOptions: {
                                 /* 在這裡設定手機螢幕的圖表配置 */
                                 title: {
+                                    text: mobile_titletext,
                                     y: title_y,
                                     style: { fontSize: 28 },
                                 },
@@ -347,7 +365,7 @@ function GetSensorInfo() {
                         y: title_y,
                         style: {
                             color: '#000000',
-                            fontSize: 22,
+                            fontSize: title_fontsize,
                         },
                     },
                     subtitle: {
@@ -357,7 +375,7 @@ function GetSensorInfo() {
                         y: -78,
                         style: {
                             color: '#000000',
-                            fontSize: 24,
+                            fontSize: subtitle_fontsize,
                         },
                     },
                     tooltip: {

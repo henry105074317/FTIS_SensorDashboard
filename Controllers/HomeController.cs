@@ -68,7 +68,7 @@ namespace WSensor_DashB.Controllers
                     if (EachSensor.Stage == "ToBeConfirm") // 該測站狀態為"待檢核"
                     {
                         ToBeConfirm += 1;
-                        row["SourceTime"] = EachSensor.SourceTime.ToString("yyyy/MM/dd HH:mm");
+                        row["SourceTime"] = EachSensor.SourceTime.ToString("yyyy-MM-dd HH:mm");
                     }
                     else if (EachSensor.Stage == "Alert")
                     {
@@ -93,14 +93,14 @@ namespace WSensor_DashB.Controllers
                         string t = old_row[0]["SourceTime"].ToString();
                         if (t.Length == 0) //代表是第一筆待檢和資料
                         {
-                            old_row[0]["SourceTime"] = EachSensor.SourceTime.ToString("yyyy/MM/dd HH:mm");
+                            old_row[0]["SourceTime"] = EachSensor.SourceTime.ToString("yyyy-MM-dd HH:mm");
                         }
                         else
                         {
                             DateTime old_time = DateTime.Parse(t);
                             if (EachSensor.SourceTime >= old_time)
                             {
-                                old_row[0]["SourceTime"] = EachSensor.SourceTime.ToString("yyyy/MM/dd HH:mm");
+                                old_row[0]["SourceTime"] = EachSensor.SourceTime.ToString("yyyy-MM-dd HH:mm");
                             }
                         }                                             
                     }
