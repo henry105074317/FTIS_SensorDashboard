@@ -51,7 +51,7 @@ $(document).ready(function () {
                 });
                 // 設定字體自行隨螢幕大小比例縮放
                 var title_fontsize = (document.getElementById('chart' + (i + 1)).offsetWidth) * 0.07;
-                var subtitle_fontsize = (document.getElementById('chart' + (i + 1)).offsetWidth) * 0.075;
+                var subtitle_fontsize = (document.getElementById('chart' + (i + 1)).offsetWidth) * 0.07;
                 var title_timefontsize = (document.getElementById('chart' + (i + 1)).offsetWidth) * 0.06;
                 //設定title文字
                 var title_text = '';
@@ -298,7 +298,7 @@ function GetSensorInfo() {
                 });
                 // 設定字體自行隨螢幕大小比例縮放
                 var title_fontsize = (document.getElementById('chart' + (i + 1)).offsetWidth) * 0.07;
-                var subtitle_fontsize = (document.getElementById('chart' + (i + 1)).offsetWidth) * 0.075;
+                var subtitle_fontsize = (document.getElementById('chart' + (i + 1)).offsetWidth) * 0.07;
                 var title_timefontsize = (document.getElementById('chart' + (i + 1)).offsetWidth) * 0.06;
                 //設定title文字
                 var title_text = '';
